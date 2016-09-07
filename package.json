@@ -1,10 +1,10 @@
 {
   "name": "cellular_automata",
   "version": "1.0.0",
-  "description": "",
   "main": "app.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "webpack": "webpack"
   },
   "repository": {
     "type": "git",
@@ -15,5 +15,12 @@
   "bugs": {
     "url": "https://github.com/ScottDuane/CellularAutomata/issues"
   },
-  "homepage": "https://github.com/ScottDuane/CellularAutomata#readme"
+  "homepage": "https://github.com/ScottDuane/CellularAutomata#readme",
+  "dependencies": {
+    "easeljs-loader": "^0.1.2",
+    "node-easel": "^0.1.2",
+    "webpack": "^1.13.2"
+  },
+  "devDependencies": {},
+  "description": ""
 }

@@ -1,3 +1,6 @@
+import Cell from './cell.js';
+import Board from './board.js';
+
 class Automata {
   constructor(tileType, speed, x, y, dimX, dimY, game) {
     let posX = 0;
@@ -72,7 +75,7 @@ class Automata {
   checkTriangularNeighbors() {
 
   };
-  
+
   iterate() {
     let cellSetCopy = [];
     cellSet.forEach((row, i) => {

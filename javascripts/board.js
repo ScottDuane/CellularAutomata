@@ -6,6 +6,8 @@ class Board {
   constructor = (tileType, ctx) => {
     this.ctx = ctx;
     this.stage = new createjs.Stage('canvas-el');
+    this.graphics = new createjs.Graphics();
+
     this.cells = [];
     if (tileType === "square") {
       this.createSquares();
@@ -17,12 +19,11 @@ class Board {
   };
 
   createSquares = () => {
-    let g = new createjs.Graphics();
-    let square = new createjs.Shape(g);
-    g.setStrokeStyle(8)
-    g.beginStroke("#F0F")
-    g.beginRadialGradientFill(["#FF0","#00F"],[0,1],100,200,0,100,200,40)
-    g.drawCircle(100,200,40);
+    let square = new createjs.Shape(this.graphics);
+    this.graphics.setStrokeStyle(8)
+    this.graphics.beginStroke("#F0F")
+    this.graphics.beginRadialGradientFill(["#FF0","#00F"],[0,1],100,200,0,100,200,40)
+    this.graphics.drawCircle(100,200,40);
   };
 
   createTriangles = () => {
@@ -34,7 +35,7 @@ class Board {
   };
 
   render = () => {
-
+    // where most of the easel stuff comes in
   }
 }
 
