@@ -1,17 +1,17 @@
 module.exports = {
-  entry: "/app.js",
+  entry: "./app.js",
   output: {
-    path: "/",
+    path: "",
     filename: "bundle.js",
   },
   module: {
     loaders: [
       {
-        test: [/\.jsx?$/, /\.js?$/],
+        test: ["", /\.jsx?$/, /\.js?$/],
         exclude: /(node_modules)/,
         loader: 'babel',
         query: {
-          presets: ['es2015', 'react']
+          presets: ['es2015']
         }
       }
     ]
@@ -19,5 +19,8 @@ module.exports = {
   devtool: 'source-map',
   resolve: {
     extensions: ["", ".js", ".jsx" ]
+  },
+  node: {
+    fs: "empty"
   }
 };

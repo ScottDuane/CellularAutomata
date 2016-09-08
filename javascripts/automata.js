@@ -5,7 +5,7 @@ class Automata {
   constructor(tileType, speed, x, y, dimX, dimY, game) {
     let posX = 0;
     let posY = 0;
-    let this.cellSet = [];
+    this.cellSet = [];
     this.game = game;
     this.tileType = tileType;
 
@@ -23,7 +23,7 @@ class Automata {
 
   start() {
     let that = this;
-    let this.gameInterval = window.setInterval(speed, () => {
+    this.gameInterval = window.setInterval(speed, () => {
       that.iterate();
       that.game.render();
     });
@@ -86,7 +86,7 @@ class Automata {
     });
 
     cellSetCopy.forEach((row, i) => {
-       row.forEach((el, j) {
+       row.forEach((el, j) => {
          if (this.checkNeighbors(i, j)) {
            el.setAliveState(true);
          } else {
@@ -97,4 +97,6 @@ class Automata {
 
      this.cellSet = cellSetCopy;
   };
-}
+};
+
+export default Automata;
