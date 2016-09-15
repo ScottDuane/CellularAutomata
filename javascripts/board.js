@@ -1,9 +1,14 @@
-import easeljs from 'easeljs-loader';
+import createjs from 'node-easel';
+import canvas from 'canvas';
 import Automata from './automata';
 import Cell from './cell';
 
 class Board {
   constructor(tileType, ctx) {
+    let eas = createjs;
+    debugger;
+    console.log(createjs);
+    console.log(easeljs.Stage);
     this.ctx = ctx;
     this.stage = new easeljs.Stage('canvas-el');
     this.graphics = new easeljs.Graphics();
