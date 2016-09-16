@@ -8,5 +8,3 @@ class Cell {
     this.aliveState = !this.aliveState;
   };
 };
-
-export default Cell;

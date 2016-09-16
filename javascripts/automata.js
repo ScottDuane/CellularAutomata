@@ -1,5 +1,4 @@
-import Cell from './cell.js';
-import Board from './board.js';
+
 
 class Automata {
   constructor(tileType, speed, x, y, dimX, dimY, game) {
@@ -12,7 +11,7 @@ class Automata {
     for (var i=0; i<x; i++) {
       this.cellSet.push([]);
       for (var j=0; j<y; j++) {
-        let cell = Cell.new(dimX, dimY, posX, posY);
+        let cell = new Cell(dimX, dimY, posX, posY);
         this.cellSet[i].push(cell);
         posY += dimY;
       }
@@ -23,7 +22,7 @@ class Automata {
 
   start() {
     let that = this;
-    this.gameInterval = window.setInterval(speed, () => {
+    this.gameInterval = window.setInterval(this.speed, () => {
       that.iterate();
       that.game.render();
     });
@@ -98,5 +97,3 @@ class Automata {
      this.cellSet = cellSetCopy;
   };
 };
-
-export default Automata;

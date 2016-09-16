@@ -1,18 +1,10 @@
-import createjs from 'node-easel';
-import canvas from 'canvas';
-import Automata from './automata';
-import Cell from './cell';
+
 
 class Board {
   constructor(tileType, ctx) {
-    let eas = createjs;
-    debugger;
-    console.log(createjs);
-    console.log(easeljs.Stage);
     this.ctx = ctx;
-    this.stage = new easeljs.Stage('canvas-el');
-    this.graphics = new easeljs.Graphics();
-
+    this.stage = new createjs.Stage('canvas-el');
+    this.graphics = new createjs.Graphics();
     this.cells = [];
     if (tileType === "square") {
       this.createSquares();
@@ -24,11 +16,13 @@ class Board {
   };
 
   createSquares() {
-    let square = new easeljs.Shape(this.graphics);
-    this.graphics.setStrokeStyle(8)
-    this.graphics.beginStroke("#F0F")
-    this.graphics.beginRadialGradientFill(["#FF0","#00F"],[0,1],100,200,0,100,200,40)
-    this.graphics.drawCircle(100,200,40);
+    debugger;
+    let circle = new createjs.Shape(this.graphics);
+    circle.graphics.beginFill("DeepSkyBlue").drawCircle(0, 0, 50);
+    circle.x = 100;
+    circle.y = 66;
+    this.stage.addChild(circle);
+    this.stage.update();
   };
 
   createTriangles() {
@@ -43,5 +37,3 @@ class Board {
     // where most of the easel stuff comes in
   };
 }
-
-export default Board;
