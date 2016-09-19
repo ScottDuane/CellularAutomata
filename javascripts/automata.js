@@ -1,36 +1,27 @@
 
 
 class Automata {
-  constructor(tileType, speed, x, y, dimX, dimY, game) {
+  constructor(tileType, speed) {
     let posX = 0;
     let posY = 0;
-    this.cellSet = [];
-    this.game = game;
+    this.cells = [];
     this.tileType = tileType;
-
-    for (var i=0; i<x; i++) {
-      this.cellSet.push([]);
-      for (var j=0; j<y; j++) {
-        let cell = new Cell(dimX, dimY, posX, posY);
-        this.cellSet[i].push(cell);
-        posY += dimY;
+    this.speed = 100;
+    for (var i=0; i<100; i++) {
+      this.cells.push([]);
+      for (var j=0; j<100; j++) {
+        let cell = new Cell("square", posX, posY, false);
+        this.cells[i].push(cell);
+        posY += 5;
       }
       posY = 0;
-      posX += dimX;
+      posX += 5;
     }
+
+    this.cells[1][1] = true;
+    this.cells[1][2] = true;
   };
 
-  start() {
-    let that = this;
-    this.gameInterval = window.setInterval(this.speed, () => {
-      that.iterate();
-      that.game.render();
-    });
-  };
-
-  stop() {
-    window.clearInterval(this.gameInterval);
-  };
 
   checkNeighbors(i, j) {
     switch(this.tileType) {
@@ -46,13 +37,18 @@ class Automata {
   checkSquareNeighbors(i, j) {
     let liveCount = 0;
     let directions = [[-1, -1], [-1, 0], [1, 0], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
+    let that = this;
     directions.forEach((vector) => {
-      if (this.cellSet[vector[0]][vector[1]].aliveState) {
-        liveCount += 1;
+      let checkX = i+vector[0];
+      let checkY = j+vector[1];
+      if ((checkX > -1 && checkY > -1) && (checkX < 100 && checkY < 100)) {
+        if (that.cells[checkX][checkY].aliveState) {
+          liveCount += 1;
+        }
       }
     });
 
-    if (this.cellSet[i][j].aliveState) {
+    if (this.cells[i][j].aliveState) {
       if (liveCount < 2 || liveCount > 3) {
         return false;
       } else {
@@ -77,7 +73,7 @@ class Automata {
 
   iterate() {
     let cellSetCopy = [];
-    cellSet.forEach((row, i) => {
+    this.cells.forEach((row, i) => {
       cellSetCopy.push([]);
       row.forEach((el) => {
         cellSetCopy[i].push(el);
@@ -94,6 +90,6 @@ class Automata {
        });
      });
 
-     this.cellSet = cellSetCopy;
+     this.cells = cellSetCopy;
   };
 };
