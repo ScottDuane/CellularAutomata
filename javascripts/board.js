@@ -9,7 +9,8 @@ class Board {
     this.automata = automata;
     this.stage = new createjs.Stage('canvas-el');
     this.graphics = new createjs.Graphics();
-    if (tileType === "square") {
+    this.tileType = tileType;
+    if (this.tileType === "square") {
       this.renderSquares();
     } else if (tileType === "hexagon") {
       this.renderHexagons();
@@ -23,12 +24,12 @@ class Board {
     let pos_x = 0;
     let pos_y = 0;
     // let square = new createjs.Rectangle(0, 0, 10, 10);
-    // debugger;
+    //debugger;
     for(var i=0; i<100; i++) {
       pos_x = 0;
       for(var j=0; j<100; j++) {
         let color = "";
-        if(this.cells[i][j]) {
+        if(this.cells[i][j].aliveState) {
           color = "#ff0000";
         } else {
           color = "#00ff00";
@@ -55,10 +56,12 @@ class Board {
 
   startGame() {
     let that = this;
-    this.automataInterval = window.setInterval(() => {
+
+    window.setInterval(function() {
       that.automata.iterate();
       that.render();
     }, this.speed);
+    // debugger;
   };
 
   stopGame() {

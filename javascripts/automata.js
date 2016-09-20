@@ -18,8 +18,10 @@ class Automata {
       posX += 5;
     }
 
-    this.cells[1][1] = true;
-    this.cells[1][2] = true;
+    this.cells[1][1].aliveState = true;
+    this.cells[1][2].aliveState = true;
+    this.cells[2][2].aliveState = true;
+    this.cells[10][10].aliveState = true;
   };
 
 
@@ -83,9 +85,9 @@ class Automata {
     cellSetCopy.forEach((row, i) => {
        row.forEach((el, j) => {
          if (this.checkNeighbors(i, j)) {
-           el.setAliveState(true);
+           el.aliveState = true;
          } else {
-           el.setAliveState(false);
+           el.aliveState = false;
          }
        });
      });
