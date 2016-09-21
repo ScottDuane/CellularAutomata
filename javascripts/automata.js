@@ -10,7 +10,7 @@ class Automata {
     for (var i=0; i<100; i++) {
       this.cells.push([]);
       for (var j=0; j<100; j++) {
-        let cell = new Cell("square", posX, posY, false);
+        let cell = new Cell("triangle", posX, posY, false);
         this.cells[i].push(cell);
         posY += 5;
       }
