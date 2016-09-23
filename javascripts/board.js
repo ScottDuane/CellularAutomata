@@ -73,9 +73,9 @@ class Board {
         }
 
         if(this.cells[i][j+1].aliveState) {
-          upper_color = "#00ff00";
+          upper_color = "#0000ff";
         } else {
-          upper_color = "#000fff";
+          upper_color = "#fff000";
         }
 
         let graphics_upper = new createjs.Graphics().beginStroke("#000000").beginFill(lower_color).drawPolyStar(pos_x_upper, pos_y_upper, radius, 3, 0, -90);

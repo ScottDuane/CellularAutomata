@@ -38,6 +38,8 @@ class Automata {
         this.cells[i].push(cell);
       }
     }
+
+    this.cells[10][10].aliveState = true;
   };
 
   createHexagons() {
@@ -88,11 +90,32 @@ class Automata {
 
   };
 
-  checkTriangularNeighbors() {
+  checkTriangularNeighbors(i, j) {
+    let firstDigit = 0;
+    let secondDigit = 0;
+    let thirdDigit = 0;
 
+    if (i > 0 && i < 99) {
+      firstDigit = this.cells[i - 1][j] ? 1 : 0;
+      secondDigit = this.cells[i][j] ? 1 : 0;
+      thirdDigit = this.cells[i + 1][j] ? 1 : 0;
+    } else if (i === 0) {
+      secondDigit = this.cells[i][j] ? 1 : 0;
+      thirdDigit = this.cells[i + 1][j] ? 1 : 0;
+    } else {
+      firstDigit = this.cells[i - 1][j] ? 1 : 0;
+      secondDigit = this.cells[i][j] ? 1 : 0;
+    }
+    let neigborCode = firstDigit*100 + secondDigit*10 + thirdDigit;
+    if ((neigborCode === 111 || neigborCode === 101) || (neigborCode === 10 || neigborCode === 1)) {
+      return false;
+    } else {
+      return true;
+    }
   };
 
   iterate() {
+    debugger;
     let cellSetCopy = [];
     this.cells.forEach((row, i) => {
       cellSetCopy.push([]);
