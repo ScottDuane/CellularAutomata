@@ -7,10 +7,9 @@ class Board {
     this.cells = automata.cells;
     this.ctx = ctx;
     this.automata = automata;
-    this.stage = new createjs.Stage('canvas-el');
+    this.stage = new createjs.Stage(this.ctx);
     this.graphics = new createjs.Graphics();
     this.tileType = tileType;
-    debugger;
     if (this.tileType === "square") {
       this.renderSquares();
     } else if (tileType === "hexagon") {
@@ -48,9 +47,14 @@ class Board {
   };
 
   renderTriangles() {
+    this.stage.removeAllChildren();
     let sideLength = this.DIM_X/100;
-    let pos_x = 0;
-    let pos_y = 0;
+    let radius = (sideLength*Math.sqrt(3))/3;
+    let pos_x_upper = sideLength/2;
+    let pos_y_upper = (sideLength*Math.sqrt(3))/3;
+
+    let pos_x_lower = pos_x_upper + sideLength/2;
+    let pos_y_lower = (sideLength*Math.sqrt(3))/6;
     // let pos_y = sideLength/Math.sqrt(2);
     // let graphics = new createjs.Graphics();
     // let tri = new createjs.Shape(graphics);
@@ -58,26 +62,36 @@ class Board {
     //
     // this.stage.addChild(tri);
     // this.stage.update();
-    let graphics = new createjs.Graphics();
     for(var i=0; i<100; i++) {
-      for(var j=0; j<100; j++) {
-        // let color = "";
-        // if(this.cells[i][j].aliveState) {
-        //   color = "#0000ff";
-        // } else {
-        //   color = "#fff000";
-        // }
+      for(var j=0; j<200; j+=2) {
+        let lower_color = "";
+        let upper_color = "";
+        if(this.cells[i][j].aliveState) {
+          lower_color = "#0000ff";
+        } else {
+          lower_color = "#fff000";
+        }
 
-        let triangle = new createjs.Shape(graphics);
-        triangle.graphics.beginStroke('#0da4d3').setStrokeStyle(75);
-        triangle.graphics.moveTo(i, j).lineTo(i + 1, j+1).lineTo(i, j+1).lineTo(i, j).closePath();
-        // .moveTo(pos_x, pos_y).lineTo(pos_x + sideLength/2, pos_y - sideLength/Math.sqrt(2)).lineTo(pos_x + sideLength, pos_y).lineTo(pos_x, pos_y).closePath();
-        // pos_x += sideLength;
+        if(this.cells[i][j+1].aliveState) {
+          upper_color = "#00ff00";
+        } else {
+          upper_color = "#000fff";
+        }
 
-        this.stage.addChild(triangle);
+        let graphics_upper = new createjs.Graphics().beginStroke("#000000").beginFill(lower_color).drawPolyStar(pos_x_upper, pos_y_upper, radius, 3, 0, -90);
+        let triangle_upper = new createjs.Shape(graphics_upper);
+        this.stage.addChild(triangle_upper);
+
+        let graphics_lower = new createjs.Graphics().beginFill(upper_color).drawPolyStar(pos_x_lower, pos_y_lower, radius, 3, 0, 90);
+        let triangle_lower = new createjs.Shape(graphics_lower);
+        this.stage.addChild(triangle_lower);
+        pos_x_lower += sideLength;
+        pos_x_upper += sideLength;
       }
-
-      pos_y += sideLength/Math.sqrt(2);
+      pos_x_upper = sideLength/2;
+      pos_x_lower = pos_x_upper + sideLength/2;
+      pos_y_lower += sideLength;
+      pos_y_upper += sideLength;
     }
     this.stage.update();
   };

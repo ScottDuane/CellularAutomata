@@ -2,28 +2,47 @@
 
 class Automata {
   constructor(tileType, speed) {
-    let posX = 0;
-    let posY = 0;
     this.cells = [];
     this.tileType = tileType;
     this.speed = 100;
+    if (this.tileType === "square") {
+      this.createSquares();
+    } else if (this.tileType === "triangle") {
+      this.createTriangles();
+    } else {
+      this.createHexagons();
+    }
+  };
+
+  createSquares() {
     for (var i=0; i<100; i++) {
       this.cells.push([]);
       for (var j=0; j<100; j++) {
-        let cell = new Cell("triangle", posX, posY, false);
+        let cell = new Cell("square", false);
         this.cells[i].push(cell);
-        posY += 5;
       }
-      posY = 0;
-      posX += 5;
     }
 
+    // for testing purposes
     this.cells[1][1].aliveState = true;
     this.cells[1][2].aliveState = true;
     this.cells[2][2].aliveState = true;
     this.cells[10][10].aliveState = true;
   };
 
+  createTriangles() {
+    for(var i=0; i<100; i++) {
+      this.cells.push([]);
+      for(var j=0; j<200; j++) {
+        let cell = new Cell("triangle", false);
+        this.cells[i].push(cell);
+      }
+    }
+  };
+
+  createHexagons() {
+
+  };
 
   checkNeighbors(i, j) {
     switch(this.tileType) {

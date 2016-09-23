@@ -1,10 +1,10 @@
 class Cell {
-  constructor(shape, posX, posY, aliveState) {
+  constructor(shape, aliveState) {
     this.aliveState = aliveState;
     this.shape = shape;
   };
 
-  setAliveState() {
-    this.aliveState = !this.aliveState;
-  };
+  // setAliveState() {
+  //   this.aliveState = !this.aliveState;
+  // };
 };
