@@ -4,7 +4,6 @@ class Board {
   constructor(tileType, ctx, automata) {
     this.DIM_X = 500;
     this.DIM_Y = 500;
-    this.cells = automata.cells;
     this.ctx = ctx;
     this.automata = automata;
     this.stage = new createjs.Stage(this.ctx);
@@ -20,6 +19,7 @@ class Board {
   };
 
   renderSquares() {
+    this.stage.removeAllChildren();
     let dx = this.DIM_X/100;
     let pos_x = 0;
     let pos_y = 0;
@@ -29,7 +29,7 @@ class Board {
       pos_x = 0;
       for(var j=0; j<100; j++) {
         let color = "";
-        if(this.cells[i][j].aliveState) {
+        if(this.automata.cells[i][j].aliveState) {
           color = "#ff0000";
         } else {
           color = "#00ff00";
@@ -66,13 +66,13 @@ class Board {
       for(var j=0; j<200; j+=2) {
         let lower_color = "";
         let upper_color = "";
-        if(this.cells[i][j].aliveState) {
+        if(this.automata.cells[i][j].aliveState) {
           lower_color = "#0000ff";
         } else {
           lower_color = "#fff000";
         }
 
-        if(this.cells[i][j+1].aliveState) {
+        if(this.automata.cells[i][j+1].aliveState) {
           upper_color = "#0000ff";
         } else {
           upper_color = "#fff000";

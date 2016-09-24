@@ -40,6 +40,7 @@ class Automata {
     }
 
     this.cells[10][10].aliveState = true;
+
   };
 
   createHexagons() {
@@ -91,49 +92,63 @@ class Automata {
   };
 
   checkTriangularNeighbors(i, j) {
+    if (i === 0) {
+      return this.cells[i][j].aliveState;
+    }
+
     let firstDigit = 0;
     let secondDigit = 0;
     let thirdDigit = 0;
 
-    if (i > 0 && i < 99) {
-      firstDigit = this.cells[i - 1][j] ? 1 : 0;
-      secondDigit = this.cells[i][j] ? 1 : 0;
-      thirdDigit = this.cells[i + 1][j] ? 1 : 0;
-    } else if (i === 0) {
-      secondDigit = this.cells[i][j] ? 1 : 0;
-      thirdDigit = this.cells[i + 1][j] ? 1 : 0;
+
+    if (j > 0 && j < 199) {
+      firstDigit = this.cells[i - 1][j - 1].aliveState ? 1 : 0;
+      secondDigit = this.cells[i - 1][j].aliveState ? 1 : 0;
+      thirdDigit = this.cells[i - 1][j + 1].aliveState ? 1 : 0;
+    } else if (j === 0) {
+      secondDigit = this.cells[i - 1][j].aliveState ? 1 : 0;
+      thirdDigit = this.cells[i - 1][j + 1].aliveState ? 1 : 0;
     } else {
-      firstDigit = this.cells[i - 1][j] ? 1 : 0;
-      secondDigit = this.cells[i][j] ? 1 : 0;
+      firstDigit = this.cells[i - 1][j - 1].aliveState ? 1 : 0;
+      secondDigit = this.cells[i - 1][j].aliveState ? 1 : 0;
     }
     let neigborCode = firstDigit*100 + secondDigit*10 + thirdDigit;
-    if ((neigborCode === 111 || neigborCode === 101) || (neigborCode === 10 || neigborCode === 1)) {
+    // debugger;
+    if ((neigborCode === 111 || neigborCode === 101) || (neigborCode === 10 || neigborCode === 0)) {
       return false;
     } else {
       return true;
     }
   };
 
+// for testing purposes -- delete later
+  printCells(cells) {
+    cells.forEach( (row) => {
+      let rowPrint = "";
+      row.forEach( (el) => {
+        let elPrint = el.aliveState ? "1" : "0";
+        rowPrint += elPrint;
+      });
+      console.log(rowPrint);
+    });
+  };
+
   iterate() {
-    debugger;
     let cellSetCopy = [];
     this.cells.forEach((row, i) => {
       cellSetCopy.push([]);
       row.forEach((el) => {
-        cellSetCopy[i].push(el);
+        let cellCopy = new Cell(el.shape, el.aliveState);
+        cellSetCopy[i].push(cellCopy);
       });
     });
 
-    cellSetCopy.forEach((row, i) => {
-       row.forEach((el, j) => {
-         if (this.checkNeighbors(i, j)) {
-           el.aliveState = true;
-         } else {
-           el.aliveState = false;
-         }
-       });
-     });
+    for (let i=0; i<cellSetCopy.length; i++) {
+        for(let j=0; j<cellSetCopy[0].length; j++) {
+          cellSetCopy[i][j].aliveState = this.checkNeighbors(i, j);
+        }
+    }
 
-     this.cells = cellSetCopy;
+    this.cells = cellSetCopy;
   };
 };
