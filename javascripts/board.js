@@ -55,13 +55,7 @@ class Board {
 
     let pos_x_lower = pos_x_upper + sideLength/2;
     let pos_y_lower = (sideLength*Math.sqrt(3))/6;
-    // let pos_y = sideLength/Math.sqrt(2);
-    // let graphics = new createjs.Graphics();
-    // let tri = new createjs.Shape(graphics);
-    // tri.graphics.beginStroke('#ff0000').setStrokeStyle(75).moveTo(1,1).lineTo(2,2).lineTo(2,1).lineTo(1,1).closePath();
-    //
-    // this.stage.addChild(tri);
-    // this.stage.update();
+
     for(var i=0; i<100; i++) {
       for(var j=0; j<200; j+=2) {
         let lower_color = "";
@@ -78,7 +72,7 @@ class Board {
           upper_color = "#fff000";
         }
 
-        let graphics_upper = new createjs.Graphics().beginStroke("#000000").beginFill(lower_color).drawPolyStar(pos_x_upper, pos_y_upper, radius, 3, 0, -90);
+        let graphics_upper = new createjs.Graphics().beginFill(lower_color).drawPolyStar(pos_x_upper, pos_y_upper, radius, 3, 0, -90);
         let triangle_upper = new createjs.Shape(graphics_upper);
         this.stage.addChild(triangle_upper);
 
@@ -96,8 +90,38 @@ class Board {
     this.stage.update();
   };
 
-  renderHexagons() {
 
+  renderHexagons() {
+    this.stage.removeAllChildren();
+    let sideLength = 10;
+    let top_x_pos = 0;
+    let top_y_pos = 0;
+    let bottom_x_pos = 1.5*sideLength;
+    let bottom_y_pos = sideLength;
+    for(let i=0; i<50; i++){
+      for(let j=0; j<50; j++) {
+        // determine color here
+        // let topColor =
+        // let bottomColor = 
+
+        let topGraphics = new createjs.Graphics().beginStroke("magenta").drawPolyStar(top_x_pos, top_y_pos, sideLength, 6, 0, 0);
+        let topHexagon = new createjs.Shape(topGraphics);
+        let bottomGraphics = new createjs.Graphics().beginStroke("blue").drawPolyStar(bottom_x_pos, bottom_y_pos, sideLength, 6, 0, 0);
+        let bottomHexagon = new createjs.Shape(bottomGraphics);
+        // let topHexagon = new createjs.Shape();
+        // topHexagon.graphics.beginStroke("black").setStrokeStyle(0.5);
+        // topHexagon.graphics.moveTo(top_x_pos, top_y_pos).lineTo(x_pos+sideLength, y_pos).lineTo(x_pos+sideLength/2.0, y_pos+(sideLength*Math.sqrt(3))/3).lineTo(x_pos, y_pos);
+        this.stage.addChild(topHexagon);
+        this.stage.addChild(bottomHexagon);
+        bottom_x_pos += 3*sideLength;
+        top_x_pos += 3*sideLength;
+      }
+      top_x_pos = 0;
+      bottom_x_pos = 1.5*sideLength;
+      top_y_pos += 2*sideLength;
+      bottom_y_pos += 2*sideLength;
+    }
+    this.stage.update();
   };
 
   startGame() {
