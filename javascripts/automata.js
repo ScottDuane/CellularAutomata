@@ -5,6 +5,10 @@ class Automata {
     this.cells = [];
     this.tileType = tileType;
     this.speed = 100;
+    this.createCells();
+  };
+
+  createCells() {
     if (this.tileType === "square") {
       this.createSquares();
     } else if (this.tileType === "triangle") {
@@ -165,16 +169,8 @@ class Automata {
     }
   };
 
-// for testing purposes -- delete later
-  printCells(cells) {
-    cells.forEach( (row) => {
-      let rowPrint = "";
-      row.forEach( (el) => {
-        let elPrint = el.aliveState ? "1" : "0";
-        rowPrint += elPrint;
-      });
-      console.log(rowPrint);
-    });
+  resetAutomata() {
+    this.createCells();
   };
 
   iterate() {
