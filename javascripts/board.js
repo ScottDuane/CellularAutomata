@@ -9,6 +9,27 @@ class Board {
     this.stage = new createjs.Stage(this.ctx);
     this.graphics = new createjs.Graphics();
     this.tileType = tileType;
+    this.stopButton = document.getElementById("stop-button");
+    this.resetButton = document.getElementById("reset-button");
+    this.startButton = document.getElementById("start-button");
+    this.stepButton = document.getElementById("step-button");
+    let that = this;
+    this.stopButton.addEventListener("click", () => {
+      that.stopGame();
+    });
+
+    this.startButton.addEventListener("click", () => {
+      that.startGame();
+    });
+
+    this.resetButton.addEventListener("click", () => {
+      that.resetGame();
+    });
+
+    this.stepButton.addEventListener("click", () => {
+      that.stepGame();
+    });
+
     if (this.tileType === "square") {
       this.renderSquares();
     } else if (tileType === "hexagon") {
@@ -23,8 +44,7 @@ class Board {
     let dx = this.DIM_X/100;
     let pos_x = 0;
     let pos_y = 0;
-    // let square = new createjs.Rectangle(0, 0, 10, 10);
-    //debugger;
+
     for(var i=0; i<100; i++) {
       pos_x = 0;
       for(var j=0; j<100; j++) {
@@ -100,17 +120,14 @@ class Board {
     let bottom_y_pos = sideLength;
     for(let i=0; i<50; i++){
       for(let j=0; j<50; j++) {
-        // determine color here
-        // let topColor =
-        // let bottomColor = 
+        let topColor = this.automata.cells[i][2*j].aliveState ? "#00f0ff" : "#aaaaaa";
+        let bottomColor = this.automata.cells[i][2*j + 1].aliveState ? "#00f0ff" : "#aaaaaa";
 
-        let topGraphics = new createjs.Graphics().beginStroke("magenta").drawPolyStar(top_x_pos, top_y_pos, sideLength, 6, 0, 0);
+        let topGraphics = new createjs.Graphics().beginFill(topColor).drawPolyStar(top_x_pos, top_y_pos, sideLength, 6, 0, 0);
         let topHexagon = new createjs.Shape(topGraphics);
-        let bottomGraphics = new createjs.Graphics().beginStroke("blue").drawPolyStar(bottom_x_pos, bottom_y_pos, sideLength, 6, 0, 0);
+        let bottomGraphics = new createjs.Graphics().beginFill(bottomColor).drawPolyStar(bottom_x_pos, bottom_y_pos, sideLength, 6, 0, 0);
         let bottomHexagon = new createjs.Shape(bottomGraphics);
-        // let topHexagon = new createjs.Shape();
-        // topHexagon.graphics.beginStroke("black").setStrokeStyle(0.5);
-        // topHexagon.graphics.moveTo(top_x_pos, top_y_pos).lineTo(x_pos+sideLength, y_pos).lineTo(x_pos+sideLength/2.0, y_pos+(sideLength*Math.sqrt(3))/3).lineTo(x_pos, y_pos);
+
         this.stage.addChild(topHexagon);
         this.stage.addChild(bottomHexagon);
         bottom_x_pos += 3*sideLength;
@@ -127,7 +144,7 @@ class Board {
   startGame() {
     let that = this;
 
-    window.setInterval(function() {
+    this.automataInterval = window.setInterval(function() {
       that.automata.iterate();
       that.render();
     }, this.speed);
@@ -136,6 +153,17 @@ class Board {
 
   stopGame() {
     window.clearInterval(this.automataInterval);
+  };
+
+  stepGame() {
+    this.stopGame();
+    this.automata.iterate();
+    this.render();
+  };
+
+  resetGame() {
+    window.clearInterval(this.automataInterval);
+    this.automata.resetAutomata();
   };
 
   render() {

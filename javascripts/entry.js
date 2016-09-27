@@ -5,4 +5,5 @@ document.addEventListener('DOMContentLoaded', () => {
   let automata = new Automata('hexagon', speed);
   let board = new Board('hexagon', ctx, automata);
   board.startGame();
-})
+});
+

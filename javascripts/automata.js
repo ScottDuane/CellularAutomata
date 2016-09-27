@@ -44,7 +44,24 @@ class Automata {
   };
 
   createHexagons() {
+    for(let i=0; i<50; i++) {
+      this.cells.push([]);
+      for(let j=0; j<100; j++) {
+        let cell = new Cell("hexagon", false);
+        this.cells[i].push(cell);
+      }
+    }
 
+    this.cells[5][5].aliveState = true;
+    this.cells[5][7].aliveState = true;
+    this.cells[7][4].aliveState = true;
+    this.cells[7][8].aliveState = true;
+    this.cells[9][3].aliveState = true;
+    this.cells[9][5].aliveState = true;
+    this.cells[9][7].aliveState = true;
+    this.cells[9][9].aliveState = true;
+    this.cells[11][5].aliveState = true;
+    this.cells[11][7].aliveState = true;
   };
 
   checkNeighbors(i, j) {
@@ -62,6 +79,7 @@ class Automata {
     let liveCount = 0;
     let directions = [[-1, -1], [-1, 0], [1, 0], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
     let that = this;
+
     directions.forEach((vector) => {
       let checkX = i+vector[0];
       let checkY = j+vector[1];
@@ -87,8 +105,35 @@ class Automata {
     }
   };
 
-  checkHexagonalNeighbors() {
+  checkHexagonalNeighbors(i, j) {
+    let liveCount = 0;
+    let directions = [[0, -1], [-1, 0], [0, 1], [1, 0]];
 
+    if (i % 2 === 0) {
+      directions.push([1, -1]);
+      directions.push([1, 1]);
+    } else {
+      directions.push([-1, -1]);
+      directions.push([-1, 1]);
+    }
+
+    let that = this;
+    directions.forEach((vec) => {
+      // debugger;
+      if (that.inBounds(i + vec[0], j + vec[1]) && that.cells[i + vec[0]][j + vec[1]].aliveState) {
+        liveCount += 1;
+      }
+    });
+
+    if (this.cells[i][j].aliveState) {
+      return liveCount === 3 || liveCount === 5;
+    } else {
+      return liveCount === 2;
+    }
+  };
+
+  inBounds(x, y) {
+      return ((x > -1 && x < this.cells.length) && (y > -1 && y < this.cells[0].length));
   };
 
   checkTriangularNeighbors(i, j) {
@@ -99,7 +144,6 @@ class Automata {
     let firstDigit = 0;
     let secondDigit = 0;
     let thirdDigit = 0;
-
 
     if (j > 0 && j < 199) {
       firstDigit = this.cells[i - 1][j - 1].aliveState ? 1 : 0;
