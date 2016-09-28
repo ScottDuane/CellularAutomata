@@ -30,6 +30,10 @@ class Board {
       that.stepGame();
     });
 
+    this.ctx.addEventListener("click", (e) => {
+      that.handleCellClick(e);
+    })
+
     if (this.tileType === "square") {
       this.renderSquares();
     } else if (tileType === "hexagon") {
@@ -164,6 +168,10 @@ class Board {
   resetGame() {
     window.clearInterval(this.automataInterval);
     this.automata.resetAutomata();
+  };
+
+  handleCellClick(e) {
+    debugger;
   };
 
   render() {
