@@ -4,7 +4,11 @@ class Cell {
     this.shape = shape;
   };
 
-  toggleAliveState() {
+  toggleAliveState(callback) {
     this.aliveState = !this.aliveState;
+    if (callback) {
+      // debugger;
+      callback.call();
+    }
   };
 };

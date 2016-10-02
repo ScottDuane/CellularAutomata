@@ -1,15 +1,16 @@
 
 
 class Board {
-  constructor(tileType, ctx, automata, cellHeight) {
+  constructor(tileType, ctx, automata) {
     this.DIM_X = 500;
     this.DIM_Y = 500;
-    this.cellHeight = cellHeight;
+    // this.cellHeight = cellHeight;
     this.ctx = ctx;
     this.automata = automata;
     this.stage = new createjs.Stage(this.ctx);
     this.graphics = new createjs.Graphics();
     this.tileType = tileType;
+    this.speed = 100;
 
     this.stopButton = document.getElementById("stop-button");
     this.resetButton = document.getElementById("reset-button");
@@ -18,10 +19,14 @@ class Board {
     this.aboutButton = document.getElementById("about-button");
     this.aboutModal = document.getElementsByClassName("about-modal")[0];
     this.aboutModalWrapper = document.getElementsByClassName("modal-wrapper")[0];
+    this.squareButton = document.getElementById("square-button");
+    this.hexagonButton = document.getElementById("hexagon-button");
+    this.triangleButton = document.getElementById("triangle-button");
 
     this.aboutModalDisplay = false;
     this.running = false;
 
+    this.setCellHeight();
     this.bindClickHandlers();
 
     if (this.tileType === "square") {
@@ -62,6 +67,37 @@ class Board {
     this.aboutModalWrapper.addEventListener("click", () => {
       that.toggleAboutModal();
     });
+
+    this.squareButton.addEventListener("click", () => {
+      that.toggleShapeType("square");
+    });
+
+    this.hexagonButton.addEventListener("click", () => {
+      that.toggleShapeType("hexagon");
+    });
+
+    this.triangleButton.addEventListener("click", () => {
+      that.toggleShapeType("triangle");
+    });
+  };
+
+  setCellHeight() {
+    // change probably in the future -- this is dumb
+    if (this.tileType === "square") {
+      this.cellHeight = this.DIM_X/100;
+    } else if (this.tileType === "triangle") {
+      this.cellHeight = this.DIM_X/100;
+    } else {
+      this.cellHeight = this.DIM_X/100;
+    }
+  };
+
+  toggleShapeType(newType) {
+    if (newType !== this.tileType) {
+      this.automata = new Automata(newType, this.speed);
+      this.tileType = newType;
+      this.startGame();
+    }
   };
 
   toggleAboutModal() {
@@ -207,15 +243,17 @@ class Board {
   };
 
   handleCellClick(e) {
+    // debugger;
     // might change depending on what type of shape
-    let row = (e.X_COOR + this.ctx.X_OFFSET)/this.cellHeight;
-    let col = (e.Y_COOR + this.ctx.Y_OFFSET)/this.cellHeight;
-    this.automata.cells[row][col].toggleAliveState();
+    let col =  Math.floor(e.offsetX/this.cellHeight);
+    let row = Math.floor(e.offsetY/this.cellHeight);
+    this.automata.cells[row][col].toggleAliveState(this.render.bind(this));
+    // this.render();
+    // debugger;
     // get (x, y) position on canvas using canvas offset and e offset
     // record centerX, centerY for each cell
     // minimize the function (x - centerX)^2 + (y - centerY)^2
     // under the constraint
-    debugger;
   };
 
   render() {
