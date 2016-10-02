@@ -1,5 +1,138 @@
-/*#canvas-el {
-  width: 500px;
-  height: 500px;
+#canvas-el {
   border: 1px #000 solid;
-}*/
+}
+
+body {
+  display: flex;
+  flex-flow: column;
+}
+
+h1 {
+  text-align: center;
+
+}
+ul {
+  display: flex;
+  list-style-type: none;
+  justify-content: center;
+}
+
+.button-list {
+  flex-flow: row;
+  justify-content: center;
+}
+
+.shape-list {
+  flex-flow: column;
+  align-items: center;
+}
+button {
+  color: white;
+  width: 160px;
+  height: 50px;
+  font-size: 16px;
+  margin: 10px;
+  transition-timing-function: ease-in-out;
+  transition-duration: 300ms;
+}
+
+#stop-button {
+  background-color: red;
+  border: red 2px solid;
+  /*:hover {
+    background-color: none;
+    color: red;
+
+  }*/
+}
+
+#start-button {
+  background-color: #23ad34;
+  border: #23ad34 2px solid;
+}
+
+#reset-button {
+  background-color: #0089ff;
+  border: #0089ff 2px solid;
+}
+
+#step-button {
+  background-color: #c728c7;
+  border: #c728c7 2px solid;
+}
+
+#step-button:hover, #stop-button:hover, #reset-button:hover, #start-button:hover {
+  background-color: white;
+  cursor: pointer;
+}
+
+#step-button:hover {
+  color: #c728c7;
+}
+
+#stop-button:hover {
+  color: red;
+}
+
+#start-button:hover {
+  color: #23ad34;
+}
+
+#reset-button:hover {
+  color: #0089ff;
+}
+
+modal {
+  position: fixed;
+  height: 100%;
+  width: 100%;
+  margin: 0px;
+  left: 0px;
+  top: 0px;
+
+}
+
+.modal-wrapper {
+  opacity: 0.5;
+  background-color: #333;
+  height: 100%;
+  width: 100%;
+  z-index: 1;
+
+}
+
+.modal-content {
+  opacity: 1;
+  position: fixed;
+  top: 10%;
+  left: 10%;
+  background-color: white;
+  height: 80%;
+  width: 80%;
+  z-index: 2;
+  text-align: center;
+}
+.invisible {
+  opacity: 0;
+  z-index: -1;
+}
+
+.canvas-container {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  align-content: space-between;
+}
+
+.shape-button {
+  height: 100px;
+  margin: 20px;
+}
+
+.shape-button:hover {
+  opacity: .6;
+  transition-duration: 300ms;
+  transition-timing-function: ease-in;
+  height: 110px;
+  margin: 10px;
+}

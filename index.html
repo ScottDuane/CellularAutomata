@@ -14,10 +14,40 @@
     <h1 class="game-title">Cellular Automata</h1>
     <ul class="button-list">
       <li><button type="button" id="stop-button" name="button">Stop</button></li>
-      <li><button type="button" id="step-button" name="button">Step</button></li>
       <li><button type="button" id="start-button" name="button">Start</button></li>
+      <li><button type="button" id="step-button" name="button">Iterate</button></li>
       <li><button type="button" id="reset-button" name="button">Clear Board</button></li>
+      <li><button type="button" id="about-button" name="button">About</button></li>
     </ul>
-    <canvas height="500" width="900" id="canvas-el"></canvas>
+
+    <div class="canvas-container">
+      <ul class="shape-list">
+        <li><img class="shape-button" id="square" src="images/square.png" /></li>
+        <li><img class="shape-button" id="triangle" src="images/triangle.png" /></li>
+        <li><img class="shape-button" id="hexagon" src="images/hexagon2.png" /></li>
+      </ul>
+      <canvas height="500" width="900" id="canvas-el"></canvas>
+    </div>
+    <modal class="about-modal invisible">
+      <div class="modal-wrapper">
+      </div>
+      <div class="modal-content">
+        <h2>Welcome!</h2>
+        <div>This generator demonstrates three different types of <i>cellular automata</i>:
+          square, triangular, and hexagonal.  In each generator, an individual cell starts as either
+          dead or alive.  Whether the cell lives or dies on the next iteration of the game
+          depends upon how many of its immediate neighbors are dead or alive.  The rules vary for each shape.
+
+        </div>
+
+        <div>The square cellular automaton is simply a recreation of Conway's Game of Life.</div>
+
+        <div>The triangular cellular automaton is known as Rule 90.  Beginning with one live
+          will result in a Sierpinski's Triangle as the number of iterations approaches infinity.</div>
+
+        <div>The hexagonal cellular automaton is a direct variation on Conway's Game of Life, simply with a
+          slight variation in the defintion of "neighbor" on this hexagonally tiled grid.</div>
+        </div>
+    </modal>
   </body>
 </html>

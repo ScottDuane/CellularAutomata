@@ -1,18 +1,39 @@
 
 
 class Board {
-  constructor(tileType, ctx, automata) {
+  constructor(tileType, ctx, automata, cellHeight) {
     this.DIM_X = 500;
     this.DIM_Y = 500;
+    this.cellHeight = cellHeight;
     this.ctx = ctx;
     this.automata = automata;
     this.stage = new createjs.Stage(this.ctx);
     this.graphics = new createjs.Graphics();
     this.tileType = tileType;
+
     this.stopButton = document.getElementById("stop-button");
     this.resetButton = document.getElementById("reset-button");
     this.startButton = document.getElementById("start-button");
     this.stepButton = document.getElementById("step-button");
+    this.aboutButton = document.getElementById("about-button");
+    this.aboutModal = document.getElementsByClassName("about-modal")[0];
+    this.aboutModalWrapper = document.getElementsByClassName("modal-wrapper")[0];
+
+    this.aboutModalDisplay = false;
+    this.running = false;
+
+    this.bindClickHandlers();
+
+    if (this.tileType === "square") {
+      this.renderSquares();
+    } else if (tileType === "hexagon") {
+      this.renderHexagons();
+    } else if (tileType === "triangle") {
+      this.renderTriangles();
+    }
+  };
+
+  bindClickHandlers() {
     let that = this;
     this.stopButton.addEventListener("click", () => {
       that.stopGame();
@@ -30,16 +51,27 @@ class Board {
       that.stepGame();
     });
 
+    this.aboutButton.addEventListener("click", () => {
+      that.toggleAboutModal();
+    });
+
     this.ctx.addEventListener("click", (e) => {
       that.handleCellClick(e);
-    })
+    });
 
-    if (this.tileType === "square") {
-      this.renderSquares();
-    } else if (tileType === "hexagon") {
-      this.renderHexagons();
-    } else if (tileType === "triangle") {
-      this.renderTriangles();
+    this.aboutModalWrapper.addEventListener("click", () => {
+      that.toggleAboutModal();
+    });
+  };
+
+  toggleAboutModal() {
+    if (this.aboutModalDisplay) {
+      this.aboutModalDisplay = false;
+      this.aboutModal.classList.add("invisible");
+
+    } else {
+      this.aboutModalDisplay = true;
+      this.aboutModal.classList.remove("invisible");
     }
   };
 
@@ -146,17 +178,20 @@ class Board {
   };
 
   startGame() {
-    let that = this;
-
-    this.automataInterval = window.setInterval(function() {
-      that.automata.iterate();
-      that.render();
-    }, this.speed);
+    if (!this.running) {
+      let that = this;
+      this.running = true;
+      this.automataInterval = window.setInterval(function() {
+        that.automata.iterate();
+        that.render();
+      }, this.speed);
+    }
     // debugger;
   };
 
   stopGame() {
     window.clearInterval(this.automataInterval);
+    this.running = false;
   };
 
   stepGame() {
@@ -167,10 +202,19 @@ class Board {
 
   resetGame() {
     window.clearInterval(this.automataInterval);
+    this.running = false;
     this.automata.resetAutomata();
   };
 
   handleCellClick(e) {
+    // might change depending on what type of shape
+    let row = (e.X_COOR + this.ctx.X_OFFSET)/this.cellHeight;
+    let col = (e.Y_COOR + this.ctx.Y_OFFSET)/this.cellHeight;
+    this.automata.cells[row][col].toggleAliveState();
+    // get (x, y) position on canvas using canvas offset and e offset
+    // record centerX, centerY for each cell
+    // minimize the function (x - centerX)^2 + (y - centerY)^2
+    // under the constraint
     debugger;
   };
 
