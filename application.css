@@ -9,7 +9,7 @@ body {
 
 h1 {
   text-align: center;
-
+  font-family: 'Lalezar', cursive;
 }
 ul {
   display: flex;
@@ -39,11 +39,6 @@ button {
 #stop-button {
   background-color: red;
   border: red 2px solid;
-  /*:hover {
-    background-color: none;
-    color: red;
-
-  }*/
 }
 
 #start-button {
@@ -52,22 +47,27 @@ button {
 }
 
 #reset-button {
-  background-color: #0089ff;
-  border: #0089ff 2px solid;
+  background-color: #1a98fc;
+  border: #1a98fc 2px solid;
 }
 
 #step-button {
-  background-color: #c728c7;
-  border: #c728c7 2px solid;
+  background-color: #9343fb;
+  border: #9343fb 2px solid;
 }
 
-#step-button:hover, #stop-button:hover, #reset-button:hover, #start-button:hover {
+#about-button {
+  background-color: #fc3589;
+  border: #fc3589 2px solid;
+}
+
+#step-button:hover, #stop-button:hover, #reset-button:hover, #start-button:hover, #about-button:hover {
   background-color: white;
   cursor: pointer;
 }
 
 #step-button:hover {
-  color: #c728c7;
+  color: #9343fb;
 }
 
 #stop-button:hover {
@@ -79,7 +79,11 @@ button {
 }
 
 #reset-button:hover {
-  color: #0089ff;
+  color: #1a98fc;
+}
+
+#about-button:hover {
+  color: #fc3589;
 }
 
 modal {
@@ -98,7 +102,6 @@ modal {
   height: 100%;
   width: 100%;
   z-index: 1;
-
 }
 
 .modal-content {
@@ -127,12 +130,18 @@ modal {
 .shape-button {
   height: 100px;
   margin: 20px;
+  opacity: .6;
+}
+
+.active-shape-button {
+  opacity: 1;
 }
 
 .shape-button:hover {
-  opacity: .6;
+  opacity: 1;
   transition-duration: 300ms;
   transition-timing-function: ease-in;
-  height: 110px;
-  margin: 10px;
+  /*height: 110px;
+  margin: 10px;*/
+  cursor: pointer;
 }

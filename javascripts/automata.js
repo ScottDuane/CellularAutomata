@@ -37,7 +37,7 @@ class Automata {
   createTriangles() {
     for(var i=0; i<100; i++) {
       this.cells.push([]);
-      for(var j=0; j<200; j++) {
+      for(var j=0; j<400; j++) {
         let cell = new Cell("triangle", false);
         this.cells[i].push(cell);
       }
@@ -141,7 +141,7 @@ class Automata {
   };
 
   checkTriangularNeighbors(i, j) {
-    if (i === 0) {
+    if (i === 0 || this.cells[i][j].aliveState) {
       return this.cells[i][j].aliveState;
     }
 

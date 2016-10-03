@@ -69,15 +69,15 @@ class Board {
     });
 
     this.squareButton.addEventListener("click", () => {
-      that.toggleShapeType("square");
+      that.toggleShapeType("square", that.squareButton);
     });
 
     this.hexagonButton.addEventListener("click", () => {
-      that.toggleShapeType("hexagon");
+      that.toggleShapeType("hexagon", that.hexagonButton);
     });
 
     this.triangleButton.addEventListener("click", () => {
-      that.toggleShapeType("triangle");
+      that.toggleShapeType("triangle", that.triangleButton);
     });
   };
 
@@ -92,10 +92,17 @@ class Board {
     }
   };
 
-  toggleShapeType(newType) {
+  toggleShapeType(newType, shapeButton) {
     if (newType !== this.tileType) {
       this.automata = new Automata(newType, this.speed);
       this.tileType = newType;
+      [this.squareButton, this.triangleButton, this.hexagonButton].forEach((button) => {
+        if (button === shapeButton) {
+          button.classList.add("active-shape-button");
+        } else {
+          button.classList.remove("active-shape-button");
+        }
+      })
       this.startGame();
     }
   };
@@ -245,15 +252,17 @@ class Board {
   handleCellClick(e) {
     // debugger;
     // might change depending on what type of shape
-    let col =  Math.floor(e.offsetX/this.cellHeight);
-    let row = Math.floor(e.offsetY/this.cellHeight);
+    let col = 0;
+    let row = 0;
+    if (this.tileType === "square") {
+      col =  Math.floor(e.offsetX/this.cellHeight);
+      row = Math.floor(e.offsetY/this.cellHeight);
+    } else if (this.tileType === "triangle") {
+      col = Math.floor(2*e.offsetX/this.cellHeight);
+      row = Math.floor(e.offsetY/this.cellHeight);
+    }
     this.automata.cells[row][col].toggleAliveState(this.render.bind(this));
-    // this.render();
-    // debugger;
-    // get (x, y) position on canvas using canvas offset and e offset
-    // record centerX, centerY for each cell
-    // minimize the function (x - centerX)^2 + (y - centerY)^2
-    // under the constraint
+
   };
 
   render() {
