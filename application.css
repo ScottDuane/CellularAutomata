@@ -130,7 +130,7 @@ modal {
 .shape-button {
   height: 100px;
   margin: 20px;
-  opacity: .6;
+  opacity: .4;
 }
 
 .active-shape-button {
@@ -144,4 +144,38 @@ modal {
   /*height: 110px;
   margin: 10px;*/
   cursor: pointer;
+}
+
+.color-choice-list {
+  display: flex;
+  flex-flow: column;
+}
+.color-choice {
+  width: 90px;
+  height: 90px;
+  margin: 20px;
+  margin-left: 0px;
+}
+.fill-option-one {
+  background: blue; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, blue, purple); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, blue, purple); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, blue, purple); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, blue, purple); /* Standard syntax */
+}
+
+.fill-option-two {
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, red, yellow); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, red, yellow); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, red, yellow); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, red, yellow); /* Standard syntax */
+}
+
+.fill-option-three {
+  background: red; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, red, yellow); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, red, yellow); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, red, yellow); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, red, yellow); /* Standard syntax */
 }
