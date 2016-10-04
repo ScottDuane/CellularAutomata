@@ -7,7 +7,7 @@ body {
   flex-flow: column;
 }
 
-h1 {
+h1, h2 {
   text-align: center;
   font-family: 'Lalezar', cursive;
 }
@@ -114,6 +114,16 @@ modal {
   width: 80%;
   z-index: 2;
   text-align: center;
+  display: flex;
+  flex-flow: column;
+  overflow: scroll;
+  border-radius: 12px;
+}
+
+.modal-paragraph ul  {
+  display: flex;
+  flex-flow: column;
+  text-align: justify;
 }
 .invisible {
   opacity: 0;

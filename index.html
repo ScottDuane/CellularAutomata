@@ -39,21 +39,22 @@
       <div class="modal-wrapper">
       </div>
       <div class="modal-content">
-        <h2>Welcome!</h2>
-        <div>This generator demonstrates three different types of <i>cellular automata</i>:
-          square, triangular, and hexagonal.  In each generator, an individual cell starts as either
-          dead or alive.  Whether the cell lives or dies on the next iteration of the game
-          depends upon how many of its immediate neighbors are dead or alive.  The rules vary for each shape.
+        <h2>Cellular Automata: A Zero-Player "Game"</h2>
 
-        </div>
+        <div class="modal-paragraph">A <i>cellular automaton</i> begins with a grid or other representation of the automaton's cells.  Each cell has a state -- typically, alive or dead -- and a rule for how that state should change as the generations of the automaton progress.</div>
 
-        <div>The square cellular automaton is simply a recreation of Conway's Game of Life.</div>
-
-        <div>The triangular cellular automaton is known as Rule 90.  Beginning with one live
-          will result in a Sierpinski's Triangle as the number of iterations approaches infinity.</div>
-
-        <div>The hexagonal cellular automaton is a direct variation on Conway's Game of Life, simply with a
-          slight variation in the defintion of "neighbor" on this hexagonally tiled grid.</div>
+        <div class="modal-paragraph">This generator demonstrates three different types of automata:
+          <ul>
+            <li><b>Conway's Game of Life</b> begins with a square grid.  Under the original rules, live cells stay alive if they are surrounded by 2 or 3 live neighbors; dead cells become alive if they're surrounded by exactly 3 live neighbors.  Otherwise, the cells die or stay dead.  In this engine, however, you can change these conditions -- observe how differently the automaton behaves under different conditions!</li>
+            <li><b>Rule 90</b> begins with a grid of tiled equilateral triangles and builds from the top down.  The state of each cell depends on the state of the three cells directly above it.  If 1 represents a live cell and 0 a dead cell, the eight initial conditions are:
+              <ul>
+                <li>111, 101, 010, 000 [arrow] 0</li>
+                <li>110, 001, 011, 100 [arrow] 1</li>
+              </ul>
+            Rule 30 is a variation on this idea, which you can try out as well with this engine.
+            </li>
+            <li><b>Hexagonal Game of Life</b> is a variation on Conway's Game of Life that begins with a grid tiled by regular hexagons.  Similar to the original GoL, live cells stay alive if they're surrounded by between 3 and 5 neighbors; dead cells come to life if they're surrounded by exactly 2 neigbors.  You can adjust these rules, too, and see what happens!</li>
+          </ul>
         </div>
     </modal>
   </body>

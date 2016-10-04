@@ -130,7 +130,7 @@ class Automata {
     });
 
     if (this.cells[i][j].aliveState) {
-      return liveCount === 3 || liveCount === 5;
+      return liveCount > 2 && liveCount < 6;
     } else {
       return liveCount === 2;
     }
