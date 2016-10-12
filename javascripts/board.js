@@ -1,7 +1,9 @@
 
 
 class Board {
-  constructor(tileType, ctx, automata) {
+  constructor(tileType, ctx, automata, colorIndex = 0) {
+    this.ALIVE_COLORS = ["#9343fb", "#23ad34", "#ffffff"];
+    this.DEAD_COLORS = ["#1a98fc", "yellow", "#000000"];
     this.DIM_X = 500;
     this.DIM_Y = 500;
     // this.cellHeight = cellHeight;
@@ -22,10 +24,11 @@ class Board {
     this.squareButton = document.getElementById("square-button");
     this.hexagonButton = document.getElementById("hexagon-button");
     this.triangleButton = document.getElementById("triangle-button");
-
+    this.colorButtons = document.getElementsByClassName("color-choice");
     this.aboutModalDisplay = false;
     this.running = false;
 
+    this.setColor(colorIndex);
     this.setCellHeight();
     this.bindClickHandlers();
 
@@ -53,7 +56,7 @@ class Board {
     });
 
     this.stepButton.addEventListener("click", () => {
-      that.stepGame();
+      that.stepGame()
     });
 
     this.aboutButton.addEventListener("click", () => {
@@ -79,6 +82,26 @@ class Board {
     this.triangleButton.addEventListener("click", () => {
       that.toggleShapeType("triangle", that.triangleButton);
     });
+
+    for (let i=0; i<3; i++) {
+      this.colorButtons[i].addEventListener("click", () => {
+        that.setColor(i);
+      });
+    }
+  };
+
+  setColor(colorIndex) {
+    this.aliveColor = this.ALIVE_COLORS[colorIndex];
+    this.deadColor = this.DEAD_COLORS[colorIndex];
+
+    for (let i=0; i<3; i++) {
+      if (i === colorIndex) {
+        this.colorButtons[i].classList.add("active-color-button");
+      } else {
+        this.colorButtons[i].classList.remove("active-color-button");
+      }
+    };
+
   };
 
   setCellHeight() {
@@ -127,12 +150,8 @@ class Board {
     for(var i=0; i<100; i++) {
       pos_x = 0;
       for(var j=0; j<100; j++) {
-        let color = "";
-        if(this.automata.cells[i][j].aliveState) {
-          color = "#ff0000";
-        } else {
-          color = "#00ff00";
-        }
+        let color = this.automata.cells[i][j] ? this.aliveColor : this.deadColor;
+
         let graphics = new createjs.Graphics().beginFill(color).drawRect(pos_x, pos_y, pos_x + dx, pos_y + dx);
         let square = new createjs.Shape(graphics);
         this.stage.addChild(square);
@@ -157,19 +176,8 @@ class Board {
 
     for(var i=0; i<100; i++) {
       for(var j=0; j<200; j+=2) {
-        let lower_color = "";
-        let upper_color = "";
-        if(this.automata.cells[i][j].aliveState) {
-          lower_color = "#0000ff";
-        } else {
-          lower_color = "#fff000";
-        }
-
-        if(this.automata.cells[i][j+1].aliveState) {
-          upper_color = "#0000ff";
-        } else {
-          upper_color = "#fff000";
-        }
+        let lower_color = this.automata.cells[i][j].aliveState ? this.aliveColor : this.deadColor;
+        let upper_color = this.automata.cells[i][j+1].aliveState ? this.aliveColor : this.deadColor;
 
         let graphics_upper = new createjs.Graphics().beginFill(lower_color).drawPolyStar(pos_x_upper, pos_y_upper, radius, 3, 0, -90);
         let triangle_upper = new createjs.Shape(graphics_upper);
@@ -199,8 +207,8 @@ class Board {
     let bottom_y_pos = sideLength;
     for(let i=0; i<50; i++){
       for(let j=0; j<50; j++) {
-        let topColor = this.automata.cells[i][2*j].aliveState ? "#00f0ff" : "#aaaaaa";
-        let bottomColor = this.automata.cells[i][2*j + 1].aliveState ? "#00f0ff" : "#aaaaaa";
+        let topColor = this.automata.cells[i][2*j].aliveState ? this.aliveColor : this.deadColor;
+        let bottomColor = this.automata.cells[i][2*j + 1].aliveState ? this.aliveColor : this.deadColor;
 
         let topGraphics = new createjs.Graphics().beginFill(topColor).drawPolyStar(top_x_pos, top_y_pos, sideLength, 6, 0, 0);
         let topHexagon = new createjs.Shape(topGraphics);

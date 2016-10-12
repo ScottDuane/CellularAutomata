@@ -4,5 +4,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let speed = 2000;
   let automata = new Automata('hexagon', speed);
   let board = new Board('hexagon', ctx, automata);
+//  let hexInitialConditions = {hex1: };
   board.startGame();
 });

@@ -5,6 +5,7 @@
     <title>Cellular Automata</title>
     <link rel="stylesheet" type="text/css" href="../application.css">
     <link href="https://fonts.googleapis.com/css?family=Lalezar" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
     <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
     <script src="../javascripts/cell.js"></script>
     <script src="../javascripts/automata.js"></script>
@@ -31,7 +32,7 @@
       <ul class="color-choice-list">
         <li class="color-choice fill-option-one" />
         <li class="color-choice fill-option-two" />
-        <li class="color-choice fill-option-two" />
+        <li class="color-choice fill-option-three" />
       </ul>
     </div>
 
@@ -41,19 +42,19 @@
       <div class="modal-content">
         <h2>Cellular Automata: A Zero-Player "Game"</h2>
 
-        <div class="modal-paragraph">A <i>cellular automaton</i> begins with a grid or other representation of the automaton's cells.  Each cell has a state -- typically, alive or dead -- and a rule for how that state should change as the generations of the automaton progress.</div>
+        <div class="modal-paragraph">A <i>cellular automaton</i> begins with a grid or other representation of the automaton's cells.  Each cell has a state &#8212; typically, alive or dead &#8212; and a rule for how that state should change as the generations of the automaton progress.</div>
 
         <div class="modal-paragraph">This generator demonstrates three different types of automata:
           <ul>
-            <li><b>Conway's Game of Life</b> begins with a square grid.  Under the original rules, live cells stay alive if they are surrounded by 2 or 3 live neighbors; dead cells become alive if they're surrounded by exactly 3 live neighbors.  Otherwise, the cells die or stay dead.  In this engine, however, you can change these conditions -- observe how differently the automaton behaves under different conditions!</li>
-            <li><b>Rule 90</b> begins with a grid of tiled equilateral triangles and builds from the top down.  The state of each cell depends on the state of the three cells directly above it.  If 1 represents a live cell and 0 a dead cell, the eight initial conditions are:
+            <li><a href="https://en.wikipedia.org/wiki/Conway%27s_Game_of_Life">Conway's Game of Life</a> begins with a square grid.  Under the original rules, live cells stay alive if they are surrounded by 2 or 3 live neighbors; dead cells become alive if they're surrounded by exactly 3 live neighbors.  Otherwise, the cells die or stay dead.  In this engine, however, you can change these conditions &#8212; observe how differently the automaton behaves under different rules!</li>
+            <li><a href="https://en.wikipedia.org/wiki/Rule_90">Rule 90</a> begins with a grid of tiled equilateral triangles and builds from the top down.  The state of each cell depends on the state of the three cells directly above it.  If 1 represents a live cell and 0 a dead cell, the eight initial conditions are:
               <ul>
-                <li>111, 101, 010, 000 [arrow] 0</li>
-                <li>110, 001, 011, 100 [arrow] 1</li>
+                <li>111, 101, 010, 000 &#8594; 0</li>
+                <li>110, 001, 011, 100 &#8594; 1</li>
               </ul>
-            Rule 30 is a variation on this idea, which you can try out as well with this engine.
+            <a href="https://en.wikipedia.org/wiki/Rule_30">Rule 30</a> is a variation on this idea, which you can try out as well with this engine.
             </li>
-            <li><b>Hexagonal Game of Life</b> is a variation on Conway's Game of Life that begins with a grid tiled by regular hexagons.  Similar to the original GoL, live cells stay alive if they're surrounded by between 3 and 5 neighbors; dead cells come to life if they're surrounded by exactly 2 neigbors.  You can adjust these rules, too, and see what happens!</li>
+            <li><a href="http://www.complex-systems.com/pdf/15-3-4.pdf">Hexagonal Game of Life</a> is a variation on Conway's Game of Life that begins with a grid tiled by regular hexagons.  Similar to the original GoL, live cells stay alive if they're surrounded by between 3 and 5 neighbors; dead cells come to life if they're surrounded by exactly 2 neigbors.  You can adjust these rules, too, and see what happens!</li>
           </ul>
         </div>
     </modal>

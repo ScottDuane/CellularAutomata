@@ -120,6 +120,12 @@ modal {
   border-radius: 12px;
 }
 
+.modal-paragraph {
+  text-align: justify;
+  font-family: 'Rubik', sans-serif;
+  margin-left: 10%;
+  margin-right: 10%;
+}
 .modal-paragraph ul  {
   display: flex;
   flex-flow: column;
@@ -143,9 +149,6 @@ modal {
   opacity: .4;
 }
 
-.active-shape-button {
-  opacity: 1;
-}
 
 .shape-button:hover {
   opacity: 1;
@@ -165,27 +168,40 @@ modal {
   height: 90px;
   margin: 20px;
   margin-left: 0px;
+  opacity: 0.4;
+  transition-timing-function: ease-in-out;
+  transition-duration: 300ms;
 }
+
+.color-choice:hover {
+  opacity: 1;
+  cursor: pointer;
+}
+
+.active-shape-button, .active-color-button {
+  opacity: 1;
+}
+
 .fill-option-one {
-  background: blue; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left top, blue, purple); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right, blue, purple); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right, blue, purple); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, blue, purple); /* Standard syntax */
+  background: #1a98fc; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, #1a98fc, #9343fb); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #1a98fc, #9343fb); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #1a98fc, #9343fb); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #1a98fc, #9343fb); /* Standard syntax */
 }
 
 .fill-option-two {
-  background: red; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left top, red, yellow); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right, red, yellow); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right, red, yellow); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, red, yellow); /* Standard syntax */
+  background: #23ad34; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, #23ad34, yellow); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, #23ad34, yellow); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, #23ad34, yellow); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, #23ad34, yellow); /* Standard syntax */
 }
 
 .fill-option-three {
-  background: red; /* For browsers that do not support gradients */
-  background: -webkit-linear-gradient(left top, red, yellow); /* For Safari 5.1 to 6.0 */
-  background: -o-linear-gradient(bottom right, red, yellow); /* For Opera 11.1 to 12.0 */
-  background: -moz-linear-gradient(bottom right, red, yellow); /* For Firefox 3.6 to 15 */
-  background: linear-gradient(to bottom right, red, yellow); /* Standard syntax */
+  background: grey; /* For browsers that do not support gradients */
+  background: -webkit-linear-gradient(left top, white, black); /* For Safari 5.1 to 6.0 */
+  background: -o-linear-gradient(bottom right, white, black); /* For Opera 11.1 to 12.0 */
+  background: -moz-linear-gradient(bottom right, white, black); /* For Firefox 3.6 to 15 */
+  background: linear-gradient(to bottom right, white, black); /* Standard syntax */
 }
