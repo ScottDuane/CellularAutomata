@@ -131,6 +131,11 @@ modal {
   flex-flow: column;
   text-align: justify;
 }
+
+.modal-paragraph ul li {
+  margin-bottom: 10px;
+  margin-top: 10px;
+}
 .invisible {
   opacity: 0;
   z-index: -1;
@@ -204,4 +209,9 @@ modal {
   background: -o-linear-gradient(bottom right, white, black); /* For Opera 11.1 to 12.0 */
   background: -moz-linear-gradient(bottom right, white, black); /* For Firefox 3.6 to 15 */
   background: linear-gradient(to bottom right, white, black); /* Standard syntax */
+}
+
+
+#square-control, #hexagon-control, #triangle-control {
+  height: 100px;
 }

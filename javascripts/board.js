@@ -12,7 +12,6 @@ class Board {
     this.stage = new createjs.Stage(this.ctx);
     this.graphics = new createjs.Graphics();
     this.tileType = tileType;
-    this.speed = 100;
 
     this.stopButton = document.getElementById("stop-button");
     this.resetButton = document.getElementById("reset-button");
@@ -25,6 +24,12 @@ class Board {
     this.hexagonButton = document.getElementById("hexagon-button");
     this.triangleButton = document.getElementById("triangle-button");
     this.colorButtons = document.getElementsByClassName("color-choice");
+    this.speedSlider = document.getElementById("speed-slider");
+    this.squareRules = document.getElementById("square-control");
+    this.triangleRules = document.getElementById("triangle-control");
+    this.hexagonRules = document.getElementById("hexagon-control");
+
+    this.speed = Math.floor(8000/parseInt(this.speedSlider.value));
     this.aboutModalDisplay = false;
     this.running = false;
 
@@ -34,10 +39,13 @@ class Board {
 
     if (this.tileType === "square") {
       this.renderSquares();
-    } else if (tileType === "hexagon") {
+      this.automata.setRules(this.squareRules.value);
+    } else if (this.tileType === "hexagon") {
       this.renderHexagons();
-    } else if (tileType === "triangle") {
+      this.automata.setRules(this.hexagonRules.value);
+    } else if (this.tileType === "triangle") {
       this.renderTriangles();
+      this.automata.setRules(this.triangleRules.value);
     }
   };
 
@@ -83,11 +91,34 @@ class Board {
       that.toggleShapeType("triangle", that.triangleButton);
     });
 
+    this.speedSlider.addEventListener("change", (e) => {
+      that.setSpeed(e.target.value);
+    });
+
+    this.squareRules.addEventListener("change", (e) => {
+      that.automata.setRules(e.target.value);
+    });
+
+    this.hexagonRules.addEventListener("change", (e) => {
+      that.automata.setRules(e.target.value);
+    });
+
+    this.triangleRules.addEventListener("change", (e) => {
+      that.automata.setRules(e.target.value);
+    });
+
     for (let i=0; i<3; i++) {
       this.colorButtons[i].addEventListener("click", () => {
         that.setColor(i);
       });
     }
+  };
+
+  setSpeed(speedValue) {
+    this.speed = Math.floor(8000/parseInt(speedValue));
+    window.clearInterval(this.automataInterval);
+    this.running = false;
+    this.startGame();
   };
 
   setColor(colorIndex) {
@@ -109,7 +140,7 @@ class Board {
     if (this.tileType === "square") {
       this.cellHeight = this.DIM_X/100;
     } else if (this.tileType === "triangle") {
-      this.cellHeight = this.DIM_X/100;
+      this.cellHeight = this.DIM_X/50;
     } else {
       this.cellHeight = this.DIM_X/100;
     }
@@ -125,7 +156,25 @@ class Board {
         } else {
           button.classList.remove("active-shape-button");
         }
-      })
+      });
+
+      switch(this.tileType) {
+        case "square":
+          this.squareRules.classList.remove("invisible");
+          this.hexagonRules.classList.add("invisible");
+          this.triangleRules.classList.add("invisible");
+          return this.automata.setRules(this.squareRules.value);
+        case "hexagon":
+          this.squareRules.classList.add("invisible");
+          this.triangleRules.classList.add("invisible");
+          this.hexagonRules.classList.remove("invisible");
+          return this.automata.setRules(this.hexagonRules.value);
+        case "triangle":
+          this.squareRules.classList.add("invisible");
+          this.hexagonRules.classList.add("invisible");
+          this.triangleRules.classList.remove("invisible");
+          return this.automata.setRules(this.triangleRules.value);
+      };
       this.startGame();
     }
   };
@@ -166,7 +215,7 @@ class Board {
 
   renderTriangles() {
     this.stage.removeAllChildren();
-    let sideLength = this.DIM_X/100;
+    let sideLength = this.cellHeight;
     let radius = (sideLength*Math.sqrt(3))/3;
     let pos_x_upper = sideLength/2;
     let pos_y_upper = (sideLength*Math.sqrt(3))/3;
@@ -200,7 +249,7 @@ class Board {
 
   renderHexagons() {
     this.stage.removeAllChildren();
-    let sideLength = 10;
+    let sideLength = this.cellHeight;
     let top_x_pos = 0;
     let top_y_pos = 0;
     let bottom_x_pos = 1.5*sideLength;
@@ -237,7 +286,6 @@ class Board {
         that.render();
       }, this.speed);
     }
-    // debugger;
   };
 
   stopGame() {

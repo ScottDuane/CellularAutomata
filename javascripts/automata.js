@@ -1,10 +1,12 @@
 
 
 class Automata {
-  constructor(tileType, speed) {
+  constructor(tileType, speed, liveRule, deadRule) {
     this.cells = [];
     this.tileType = tileType;
     this.speed = 100;
+    this.liveRule = liveRule;
+    this.deadRule = deadRule;
     this.createCells();
   };
 
@@ -68,6 +70,27 @@ class Automata {
     this.cells[11][7].aliveState = true;
   };
 
+  setRules(ruleValue) {
+    if (this.tileType === "triangle") {
+      this.liveRule = ruleValue === "30" ? [100, 11, 10, 1] : [];
+      this.deadRule = ruleValue === "30" ? [111, 110, 101, 0] : [];
+    } else {
+      let liveRule = ruleValue.split(",")[0].split(" ");
+      let deadRule = ruleValue.split(",")[1].split(" ");
+
+      this.liveRule = [];
+      this.deadRule = [];
+      let that = this;
+      liveRule.forEach((el) => {
+        that.liveRule.push(parseInt(el));
+      });
+
+      deadRule.forEach((el) => {
+        that.deadRule.push(parseInt(el));
+      });
+    }
+  };
+
   checkNeighbors(i, j) {
     switch(this.tileType) {
       case "square":
@@ -95,17 +118,9 @@ class Automata {
     });
 
     if (this.cells[i][j].aliveState) {
-      if (liveCount < 2 || liveCount > 3) {
-        return false;
-      } else {
-        return true;
-      }
+      return this.liveRule.includes(liveCount);
     } else {
-      if (liveCount === 3) {
-        return true;
-      } else {
-        return false;
-      }
+      return this.deadRule.includes(liveCount);
     }
   };
 
@@ -130,9 +145,9 @@ class Automata {
     });
 
     if (this.cells[i][j].aliveState) {
-      return liveCount > 2 && liveCount < 6;
+      return this.liveRule.includes(liveCount);
     } else {
-      return liveCount === 2;
+      return this.deadRule.includes(liveCount);
     }
   };
 
@@ -160,9 +175,9 @@ class Automata {
       firstDigit = this.cells[i - 1][j - 1].aliveState ? 1 : 0;
       secondDigit = this.cells[i - 1][j].aliveState ? 1 : 0;
     }
-    let neigborCode = firstDigit*100 + secondDigit*10 + thirdDigit;
+    let neighborCode = firstDigit*100 + secondDigit*10 + thirdDigit;
     // debugger;
-    if ((neigborCode === 111 || neigborCode === 101) || (neigborCode === 10 || neigborCode === 0)) {
+    if (this.deadRule.includes(neighborCode)) {
       return false;
     } else {
       return true;
