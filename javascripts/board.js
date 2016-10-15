@@ -192,14 +192,14 @@ class Board {
 
   renderSquares() {
     this.stage.removeAllChildren();
-    let dx = this.DIM_X/100;
+    let dx = 2*this.cellHeight;
     let pos_x = 0;
     let pos_y = 0;
 
     for(var i=0; i<100; i++) {
       pos_x = 0;
       for(var j=0; j<100; j++) {
-        let color = this.automata.cells[i][j] ? this.aliveColor : this.deadColor;
+        let color = this.automata.cells[i][j].aliveState ? this.aliveColor : this.deadColor;
 
         let graphics = new createjs.Graphics().beginFill(color).drawRect(pos_x, pos_y, pos_x + dx, pos_y + dx);
         let square = new createjs.Shape(graphics);
@@ -215,7 +215,7 @@ class Board {
 
   renderTriangles() {
     this.stage.removeAllChildren();
-    let sideLength = this.cellHeight;
+    let sideLength = 2*this.cellHeight;
     let radius = (sideLength*Math.sqrt(3))/3;
     let pos_x_upper = sideLength/2;
     let pos_y_upper = (sideLength*Math.sqrt(3))/3;
@@ -249,7 +249,7 @@ class Board {
 
   renderHexagons() {
     this.stage.removeAllChildren();
-    let sideLength = this.cellHeight;
+    let sideLength = 2*this.cellHeight;
     let top_x_pos = 0;
     let top_y_pos = 0;
     let bottom_x_pos = 1.5*sideLength;
@@ -306,19 +306,16 @@ class Board {
   };
 
   handleCellClick(e) {
-    // debugger;
-    // might change depending on what type of shape
     let col = 0;
     let row = 0;
     if (this.tileType === "square") {
-      col =  Math.floor(e.offsetX/this.cellHeight);
+      col = Math.floor(e.offsetX/this.cellHeight);
       row = Math.floor(e.offsetY/this.cellHeight);
     } else if (this.tileType === "triangle") {
       col = Math.floor(2*e.offsetX/this.cellHeight);
       row = Math.floor(e.offsetY/this.cellHeight);
     }
     this.automata.cells[row][col].toggleAliveState(this.render.bind(this));
-
   };
 
   render() {

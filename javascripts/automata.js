@@ -4,10 +4,10 @@ class Automata {
   constructor(tileType, speed, liveRule, deadRule) {
     this.cells = [];
     this.tileType = tileType;
-    this.speed = 100;
     this.liveRule = liveRule;
     this.deadRule = deadRule;
     this.createCells();
+    this.createInitialConditions();
   };
 
   createCells() {
@@ -72,8 +72,8 @@ class Automata {
 
   setRules(ruleValue) {
     if (this.tileType === "triangle") {
-      this.liveRule = ruleValue === "30" ? [100, 11, 10, 1] : [];
-      this.deadRule = ruleValue === "30" ? [111, 110, 101, 0] : [];
+      this.liveRule = ruleValue === "30" ? [100, 11, 10, 1] : [110, 100, 11, 1];
+      this.deadRule = ruleValue === "30" ? [111, 110, 101, 0] : [111, 110, 10, 0];
     } else {
       let liveRule = ruleValue.split(",")[0].split(" ");
       let deadRule = ruleValue.split(",")[1].split(" ");
@@ -205,5 +205,37 @@ class Automata {
     }
 
     this.cells = cellSetCopy;
+  };
+
+  createInitialConditions() {
+    this.pentadecathlon = [];
+    this.pulsar = [];
+    this.gliders = [];
+
+    for (var i=0; i<100; i++) {
+      this.pentadecathlon.push([]);
+      this.pulsar.push([]);
+      this.gliders.push([]);
+    };
+
+    let pentCoords = [[10, 5], [15, 5], [8, 6], [9, 6], [11, 6], [12, 6], [13, 6], [14, 6], [16, 6], [17, 6],
+                      [10, 7], [15, 7]];
+
+    let pulsarCoords = [[2, 0], [3, 0], [4, 0], [8, 0], [9, 0], [10, 0],
+                        [0, 2], [5, 2], [7, 2], [12, 2],
+                        [0, 3], [5, 3], [7, 3], [12, 3],
+                        [0, 4], [5, 4], [7, 4], [12, 4],
+                        [2, 5], [3, 5], [4, 5], [8, 5], [9, 5], [10, 5],
+                        [2, 7], [3, 7], [4, 7], [8, 7], [9, 7], [10, 7],
+                        [0, 8], [5, 8], [7, 8], [12, 8],
+                        [0, 9], [5, 9], [7, 9], [12, 9],
+                        [0, 10], [5, 10], [7, 10], [12, 10],
+                        [2, 12], [3, 12], [4, 12], [8, 12], [9, 12], [10, 12]]
+    let that = this;
+    pentCoords.forEach((coord) => {
+      that.pentadecathlon[coord[0]][coord[1]] = true;
+    });
+
+
   };
 };
