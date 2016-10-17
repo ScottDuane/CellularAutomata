@@ -306,8 +306,13 @@ class Board {
 
   resetGame() {
     window.clearInterval(this.automataInterval);
-    this.running = false;
     this.automata.resetAutomata();
+    if (this.running) {
+      this.running = false;
+      this.startGame();
+    } else {
+      this.render();
+    }
   };
 
   handleCellClick(e) {
