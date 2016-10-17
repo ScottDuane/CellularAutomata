@@ -3,7 +3,7 @@
 class Board {
   constructor(tileType, ctx, automata, colorIndex = 0) {
     this.ALIVE_COLORS = ["#9343fb", "#23ad34", "#ffffff"];
-    this.DEAD_COLORS = ["#1a98fc", "yellow", "#000000"];
+    this.DEAD_COLORS = ["#ADDBFF", "#FFFFAD", "#999999"];
     this.DIM_X = 500;
     this.DIM_Y = 500;
     // this.cellHeight = cellHeight;
@@ -28,6 +28,7 @@ class Board {
     this.squareRules = document.getElementById("square-control");
     this.triangleRules = document.getElementById("triangle-control");
     this.hexagonRules = document.getElementById("hexagon-control");
+    this.squareIC = document.getElementById("square-ic");
 
     this.speed = Math.floor(8000/parseInt(this.speedSlider.value));
     this.aboutModalDisplay = false;
@@ -105,6 +106,10 @@ class Board {
 
     this.triangleRules.addEventListener("change", (e) => {
       that.automata.setRules(e.target.value);
+    });
+
+    this.squareIC.addEventListener("change", (e) => {
+      that.automata.setInitialCondition(e.target.value);
     });
 
     for (let i=0; i<3; i++) {

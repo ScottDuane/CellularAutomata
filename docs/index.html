@@ -7,19 +7,19 @@
     <link href="https://fonts.googleapis.com/css?family=Lalezar" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Rubik" rel="stylesheet">
     <script src="https://code.createjs.com/easeljs-0.8.2.min.js"></script>
-    <script src="../javascripts/cell.js"></script>
-    <script src="../javascripts/automata.js"></script>
-    <script src="../javascripts/board.js"></script>
-    <script src="../javascripts/entry.js"></script>
+    <script src="./javascripts/cell.js"></script>
+    <script src="./javascripts/automata.js"></script>
+    <script src="./javascripts/board.js"></script>
+    <script src="./javascripts/entry.js"></script>
   </head>
   <body>
     <h1 class="game-title">Cellular Automata</h1>
     <h3 class="game-subtitle">A fun little demo of a few well-known zero-player games</h3>
     <ul class="button-list">
-      <li><button type="button" id="stop-button" name="button">Stop</button></li>
-      <li><button type="button" id="start-button" name="button">Start</button></li>
+      <li><button type="button" id="stop-button" name="button">Pause</button></li>
+      <li><button type="button" id="start-button" name="button">Resume</button></li>
       <li><button type="button" id="step-button" name="button">Iterate</button></li>
-      <li><button type="button" id="reset-button" name="button">Clear Board</button></li>
+      <li><button type="button" id="reset-button" name="button">Restart</button></li>
       <li><button type="button" id="about-button" name="button">About</button></li>
     </ul>
 
@@ -41,19 +41,27 @@
         </select>
       </li>
 
+      <li class="initial-condition-control">
+        <select id="square-ic">
+          <option value="beacon">Beacon</option>
+          <option value="pulsar">Pulsar</option>
+          <option value="random">Random</option>
+        </select>
+      </li>
+
       <li class="speed-control">
         <input type="range" id="speed-slider" />
       </li>
     </ul>
     <div class="canvas-container">
       <ul class="shape-list">
-        <li><img class="shape-button" id="square-button" alt="square" src="../images/square.png" /></li>
-        <li><img class="shape-button" id="triangle-button" alt="triangle" src="../images/triangle.png" /></li>
-        <li><img class="shape-button" id="hexagon-button" alt="hexagon" src="../images/hexagon2.png" /></li>
+        <li><img class="shape-button" id="square-button" alt="square" src="./images/square.png" /></li>
+        <li><img class="shape-button" id="triangle-button" alt="triangle" src="./images/triangle.png" /></li>
+        <li><img class="shape-button active-shape-button" id="hexagon-button" alt="hexagon" src="./images/hexagon2.png" /></li>
       </ul>
       <canvas height="500" width="900" id="canvas-el"></canvas>
       <ul class="color-choice-list">
-        <li class="color-choice fill-option-one" />
+        <li class="color-choice fill-option-one active-color-button" />
         <li class="color-choice fill-option-two" />
         <li class="color-choice fill-option-three" />
       </ul>

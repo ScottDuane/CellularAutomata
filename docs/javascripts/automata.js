@@ -1,13 +1,13 @@
 
 
 class Automata {
-  constructor(tileType, speed, liveRule, deadRule) {
+  constructor(tileType, rules, condition) {
     this.cells = [];
     this.tileType = tileType;
-    this.liveRule = liveRule;
-    this.deadRule = deadRule;
+    this.setRules(rules);
     this.createCells();
-    this.createInitialConditions();
+    this.createPresets();
+    this.setInitialCondition(condition);
   };
 
   createCells() {
@@ -28,25 +28,18 @@ class Automata {
         this.cells[i].push(cell);
       }
     }
-
-    // for testing purposes
-    this.cells[1][1].aliveState = true;
-    this.cells[1][2].aliveState = true;
-    this.cells[2][2].aliveState = true;
-    this.cells[10][10].aliveState = true;
   };
 
   createTriangles() {
     for(var i=0; i<100; i++) {
       this.cells.push([]);
-      for(var j=0; j<400; j++) {
+      for(var j=0; j<200; j++) {
         let cell = new Cell("triangle", false);
         this.cells[i].push(cell);
       }
     }
 
-    this.cells[10][10].aliveState = true;
-
+    this.cells[0][90].aliveState = true;
   };
 
   createHexagons() {
@@ -73,10 +66,10 @@ class Automata {
   setRules(ruleValue) {
     if (this.tileType === "triangle") {
       this.liveRule = ruleValue === "30" ? [100, 11, 10, 1] : [110, 100, 11, 1];
-      this.deadRule = ruleValue === "30" ? [111, 110, 101, 0] : [111, 110, 10, 0];
+      this.deadRule = ruleValue === "30" ? [111, 110, 101, 0] : [111, 101, 10, 0];
     } else {
-      let liveRule = ruleValue.split(",")[0].split(" ");
-      let deadRule = ruleValue.split(",")[1].split(" ");
+      let deadRule = ruleValue.split(", ")[0].split(" ");
+      let liveRule = ruleValue.split(", ")[1].split(" ");
 
       this.liveRule = [];
       this.deadRule = [];
@@ -103,8 +96,17 @@ class Automata {
   };
 
   checkSquareNeighbors(i, j) {
+    let liveCount = this.squareNeighborCount(i, j);
+    if (this.cells[i][j].aliveState) {
+      return this.liveRule.includes(liveCount);
+    } else {
+      return this.deadRule.includes(liveCount);
+    }
+  };
+
+  squareNeighborCount(i, j) {
     let liveCount = 0;
-    let directions = [[-1, -1], [-1, 0], [1, 0], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
+    let directions = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]];
     let that = this;
 
     directions.forEach((vector) => {
@@ -117,13 +119,8 @@ class Automata {
       }
     });
 
-    if (this.cells[i][j].aliveState) {
-      return this.liveRule.includes(liveCount);
-    } else {
-      return this.deadRule.includes(liveCount);
-    }
-  };
-
+    return liveCount;
+  }
   checkHexagonalNeighbors(i, j) {
     let liveCount = 0;
     let directions = [[0, -1], [-1, 0], [0, 1], [1, 0]];
@@ -138,7 +135,6 @@ class Automata {
 
     let that = this;
     directions.forEach((vec) => {
-      // debugger;
       if (that.inBounds(i + vec[0], j + vec[1]) && that.cells[i + vec[0]][j + vec[1]].aliveState) {
         liveCount += 1;
       }
@@ -156,9 +152,20 @@ class Automata {
   };
 
   checkTriangularNeighbors(i, j) {
+
     if (i === 0 || this.cells[i][j].aliveState) {
       return this.cells[i][j].aliveState;
+    } else {
+      let neighborCode = this.getTriangleNeighborCode(i, j);
+      if (this.deadRule.includes(neighborCode)) {
+        return false;
+      } else {
+        return true;
+      }
     }
+  };
+
+  getTriangleNeighborCode(i, j) {
 
     let firstDigit = 0;
     let secondDigit = 0;
@@ -175,13 +182,8 @@ class Automata {
       firstDigit = this.cells[i - 1][j - 1].aliveState ? 1 : 0;
       secondDigit = this.cells[i - 1][j].aliveState ? 1 : 0;
     }
-    let neighborCode = firstDigit*100 + secondDigit*10 + thirdDigit;
-    // debugger;
-    if (this.deadRule.includes(neighborCode)) {
-      return false;
-    } else {
-      return true;
-    }
+
+    return firstDigit*100 + secondDigit*10 + thirdDigit;
   };
 
   resetAutomata() {
@@ -207,21 +209,14 @@ class Automata {
     this.cells = cellSetCopy;
   };
 
-  createInitialConditions() {
-    this.pentadecathlon = [];
-    this.pulsar = [];
-    this.gliders = [];
+  createPresets() {
 
-    for (var i=0; i<100; i++) {
-      this.pentadecathlon.push([]);
-      this.pulsar.push([]);
-      this.gliders.push([]);
-    };
 
-    let pentCoords = [[10, 5], [15, 5], [8, 6], [9, 6], [11, 6], [12, 6], [13, 6], [14, 6], [16, 6], [17, 6],
-                      [10, 7], [15, 7]];
+    this.pentCoords = [[2, 0], [7, 0],
+                      [0, 1], [1, 1], [3, 1], [4, 1], [5, 1], [6, 1], [8, 1], [9, 1],
+                      [2, 2], [7, 2]];
 
-    let pulsarCoords = [[2, 0], [3, 0], [4, 0], [8, 0], [9, 0], [10, 0],
+    this.pulsarCoords = [[2, 0], [3, 0], [4, 0], [8, 0], [9, 0], [10, 0],
                         [0, 2], [5, 2], [7, 2], [12, 2],
                         [0, 3], [5, 3], [7, 3], [12, 3],
                         [0, 4], [5, 4], [7, 4], [12, 4],
@@ -230,12 +225,42 @@ class Automata {
                         [0, 8], [5, 8], [7, 8], [12, 8],
                         [0, 9], [5, 9], [7, 9], [12, 9],
                         [0, 10], [5, 10], [7, 10], [12, 10],
-                        [2, 12], [3, 12], [4, 12], [8, 12], [9, 12], [10, 12]]
-    let that = this;
-    pentCoords.forEach((coord) => {
-      that.pentadecathlon[coord[0]][coord[1]] = true;
-    });
+                        [2, 12], [3, 12], [4, 12], [8, 12], [9, 12], [10, 12]];
 
+     this.beaconCoords = [[0, 0], [1, 0],
+                          [0, 1], [1, 1],
+                          [2, 2], [3, 2],
+                          [2, 3], [3, 3]];
 
   };
+
+  setInitialCondition(condition) {
+    switch (condition) {
+      case "pulsar":
+        this.pulsarCoords.forEach((coord) => {
+          this.cells[coord[0]][coord[1]].aliveState = true;
+        });
+        break;
+      case "beacon":
+        this.beaconCoords.forEach((coord) => {
+          this.cells[10 + coord[0]][10 + coord[1]].aliveState = true;
+        });
+
+
+    };
+
+  };
+
+  getAliveCount () {
+    let count = 0;
+    this.cells.forEach((row) => {
+      row.forEach((cell) => {
+        if (cell.aliveState) {
+          count += 1;
+        }
+      });
+    });
+
+    return count;
+  }
 };
