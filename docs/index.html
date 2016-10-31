@@ -43,9 +43,16 @@
 
       <li class="initial-condition-control">
         <select id="square-ic">
-          <option value="beacon">Beacon</option>
           <option value="pulsar">Pulsar</option>
           <option value="glider">Glider Gun</option>
+          <option value="beacon">Beacon</option>
+          <option value="random">Random</option>
+        </select>
+
+        <select class="invisible" id="hexagon-ic">
+          <option value="pulsar">Pulsar</option>
+          <option value="glider">Glider Gun</option>
+          <option value="beacon">Beacon</option>
           <option value="random">Random</option>
         </select>
       </li>
@@ -56,14 +63,13 @@
     </ul>
     <div class="canvas-container">
       <ul class="shape-list">
-        <li><img class="shape-button" id="square-button" alt="square" src="./images/square.png" /></li>
+        <li><img class="shape-button active-shape-button" id="square-button" alt="square" src="./images/square.png" /></li>
         <li><img class="shape-button" id="triangle-button" alt="triangle" src="./images/triangle.png" /></li>
-        <li><img class="shape-button active-shape-button" id="hexagon-button" alt="hexagon" src="./images/hexagon2.png" /></li>
+        <li><img class="shape-button" id="hexagon-button" alt="hexagon" src="./images/hexagon2.png" /></li>
       </ul>
       <canvas height="500" width="900" id="canvas-el"></canvas>
       <ul class="color-choice-list">
         <li class="color-choice fill-option-one active-color-button" />
-        <li class="color-choice fill-option-two" />
         <li class="color-choice fill-option-three" />
       </ul>
     </div>

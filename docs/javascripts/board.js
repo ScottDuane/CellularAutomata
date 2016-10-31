@@ -29,6 +29,7 @@ class Board {
     this.triangleRules = document.getElementById("triangle-control");
     this.hexagonRules = document.getElementById("hexagon-control");
     this.squareIC = document.getElementById("square-ic");
+    this.hexagonIC = document.getElementById("hexagon-ic");
 
     this.speed = Math.floor(8000/parseInt(this.speedSlider.value));
     this.aboutModalDisplay = false;
@@ -112,7 +113,7 @@ class Board {
       that.automata.setInitialCondition(e.target.value);
     });
 
-    for (let i=0; i<3; i++) {
+    for (let i=0; i<2; i++) {
       this.colorButtons[i].addEventListener("click", () => {
         that.setColor(i);
       });
@@ -130,7 +131,7 @@ class Board {
     this.aliveColor = this.ALIVE_COLORS[colorIndex];
     this.deadColor = this.DEAD_COLORS[colorIndex];
 
-    for (let i=0; i<3; i++) {
+    for (let i=0; i<2; i++) {
       if (i === colorIndex) {
         this.colorButtons[i].classList.add("active-color-button");
       } else {
@@ -168,16 +169,22 @@ class Board {
           this.squareRules.classList.remove("invisible");
           this.hexagonRules.classList.add("invisible");
           this.triangleRules.classList.add("invisible");
+          this.hexagonIC.classList.add("invisible");
+          this.squareIC.classList.remove("invisible");
           return this.automata.setRules(this.squareRules.value);
         case "hexagon":
           this.squareRules.classList.add("invisible");
           this.triangleRules.classList.add("invisible");
           this.hexagonRules.classList.remove("invisible");
+          this.squareIC.classList.add("invisible");
+          this.hexagonIC.classList.remove("invisible");
           return this.automata.setRules(this.hexagonRules.value);
         case "triangle":
           this.squareRules.classList.add("invisible");
           this.hexagonRules.classList.add("invisible");
           this.triangleRules.classList.remove("invisible");
+          this.squareIC.classList.add("invisible");
+          this.hexagonIC.classList.add("invisible");
           return this.automata.setRules(this.triangleRules.value);
       };
       this.startGame();

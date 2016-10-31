@@ -2,17 +2,24 @@ Priority 1:
 
 [] Adjust color options
 [x] Create initial condition logic from entry
-[] Create random initial condition option
+[x] Create random initial condition option
 [] Border cells
-[] Triangular: adjust starting cell to center
-[] Debug Rule 30
+[x] Triangular: adjust starting cell to center
+[x] Debug Rule 30
 [x] Highlight color and shapes on load
-[] Debug click functionality
+[] Debug click functionality -- use EaselJS event handlers for this
 [] Change CLear Board to Restart
-[x] Debug square neighbor count 
+[x] Debug square neighbor count
+[] Remove space below main title
+[] Fix spacing on control bar
+[] Remove or tweak Beacon
+[] Change default to Glider Gun
+[] Create defaults for Hexagon shape
+[x] Remove one of the color options
+[x] Remove default bar in the triangle case
 
 Priority 2:
 
 [] Add favicon
 [] Add drag functionality
-[]
+[] Refactor

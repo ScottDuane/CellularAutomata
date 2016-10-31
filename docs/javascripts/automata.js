@@ -271,6 +271,20 @@ class Automata {
         this.gliderCoords.forEach((coord) => {
           this.cells[10 + coord[0]][10 + coord[1]].aliveState = true;
         });
+      case "random":
+        this.cells = [];
+        this.createCells();
+        this.initialCondition = "random";
+        this.cells.forEach((row) => {
+          row.forEach((cell) => {
+            let randomNum = Math.random();
+            if (randomNum < .2) {
+              cell.aliveState = true;
+            } else {
+              cell.aliveState = false;
+            }
+          })
+        });
         break;
 
     };
