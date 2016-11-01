@@ -1,6 +1,6 @@
 Priority 1:
 
-[] Adjust color options
+[x] Adjust color options
 [x] Create initial condition logic from entry
 [x] Create random initial condition option
 [] Border cells
@@ -10,13 +10,14 @@ Priority 1:
 [] Debug click functionality -- use EaselJS event handlers for this
 [] Change CLear Board to Restart
 [x] Debug square neighbor count
-[] Remove space below main title
+[x] Remove space below main title
 [] Fix spacing on control bar
 [] Remove or tweak Beacon
 [] Change default to Glider Gun
 [] Create defaults for Hexagon shape
 [x] Remove one of the color options
 [x] Remove default bar in the triangle case
+[] Add github and linkedin links 
 
 Priority 2:
 

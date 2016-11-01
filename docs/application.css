@@ -9,11 +9,14 @@ body {
 
 h1, h2 {
   text-align: center;
+  margin: 0px;
   font-family: 'Lalezar', cursive;
 }
 
 h3 {
   text-align: center;
+  margin: 0px;
+  margin-bottom: 16px;
   font-family: 'Rubik', sans-serif;
 }
 ul {
