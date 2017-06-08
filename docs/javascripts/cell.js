@@ -7,7 +7,6 @@ class Cell {
   toggleAliveState(callback) {
     this.aliveState = !this.aliveState;
     if (callback) {
-      // debugger;
       callback.call();
     }
   };
